@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 from torch.nn import functional as F
 from pathlib import Path
-import subprocess
+import urllib.request
 
 # Hyperparameters
 batch_size = 32 # how many independent sequences will we process in parallel?
@@ -18,8 +18,7 @@ torch.manual_seed(1337)
 
 data_url = "https://raw.githubusercontent.com/reuel-ly/bumblebee/refs/heads/main/data/input.txt"
 data_path = Path(__file__).resolve().parents[1] / "data" / "input.txt"
-wget_command = ["wget", data_url, "-O", str(data_path)]
-subprocess.run(wget_command, check=True)
+urllib.request.urlretrieve(data_url, data_path)
 
 with data_path.open('r', encoding='utf-8') as f:
     text = f.read()
